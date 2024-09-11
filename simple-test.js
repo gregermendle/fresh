@@ -1,5 +1,15 @@
-const { plus100 } = require('./index')
+const { serve } = require('./index')
 
-console.assert(plus100(0) === 100, 'Simple test failed')
-
-console.info('Simple test passed')
+serve((req) => {
+  console.log(req.method, '::', req.url)
+  return new Response("Hello", {
+    headers: {
+      'Content-type': "text/plain"
+    },
+    status: 200
+  })
+}, 8293)
+  .then((port) => {
+    console.log('Listening on ' + port)
+  })
+  .catch(console.error)
